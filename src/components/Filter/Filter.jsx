@@ -1,10 +1,16 @@
-import PropTypes from 'prop-types';
 import { React } from 'react';
 import { FilterForm } from './Filter.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import {filterSlice} from '../../redux/filterSlice'
+import { getFilter } from 'redux/selectors';
 
-const Filter = ({ value, onSearch }) => {
+
+const Filter = () => {
+  const dispatch = useDispatch()
+  const contactFilter = useSelector(getFilter)
+
   const handleSearch = event => {
-    onSearch(event.currentTarget.value);
+    dispatch(filterSlice(event.currentTarget.value));
   };
   return (
     <FilterForm>
@@ -13,7 +19,7 @@ const Filter = ({ value, onSearch }) => {
         <input
           type="text"
           name="search"
-          value={value}
+          value={contactFilter}
           onChange={handleSearch}
         ></input>
       </label>
@@ -23,7 +29,3 @@ const Filter = ({ value, onSearch }) => {
 
 export default Filter;
 
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onSearch: PropTypes.func.isRequired,
-};

@@ -3,11 +3,11 @@ import { React } from 'react';
 import ItemContact from '../ItemContact/ItemContact';
 import { ListBlock } from './ListContact.styled';
 
-const ListContact = ({ contacts, onDelete }) => {
+const ListContact = ({ contacts }) => {
   return (
     <ListBlock>
       {contacts.map(contact => (
-        <ItemContact key={contact.id} contact={contact} onDelete={onDelete} />
+        <ItemContact key={contact.id} contact={contact}  />
       ))}
     </ListBlock>
   );
