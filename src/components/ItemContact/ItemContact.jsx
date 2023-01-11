@@ -1,15 +1,20 @@
 import PropTypes from 'prop-types';
 import { ItemElement, ItemContent, DeleteButton } from './ItemContact.stayled';
 import { AiOutlineClose } from 'react-icons/ai'
+import { removeContact} from '../../redux/operations';
+import { useDispatch } from 'react-redux';
 
-const ItemContact = ({ contact, onDelete }) => {
-  const { id, name, number } = contact;
+const ItemContact = ({ contact }) => {
+  const { id, name, phone } = contact;
+  const dispatch = useDispatch();
 
   return (
     <ItemElement>
       <ItemContent>{name}</ItemContent>
-      <ItemContent>{number}</ItemContent>
-      <DeleteButton onClick={() => onDelete(id)}><AiOutlineClose /></DeleteButton>
+      <ItemContent>{phone}</ItemContent>
+      <DeleteButton onClick={() => {
+          dispatch(removeContact(id));
+        }}><AiOutlineClose /></DeleteButton>
     </ItemElement>
   );
 };
@@ -20,7 +25,7 @@ ItemContact.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
   }),
-  onDelete: PropTypes.func.isRequired,
+  
 };

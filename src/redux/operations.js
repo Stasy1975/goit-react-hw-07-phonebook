@@ -8,9 +8,8 @@ export const getAllContacts = createAsyncThunk(
     "contacts/getAll",
     async (_, { rejectWithValue }) => {
         try {
-            const data = await axios.get('/contacts')
-            console.log(data)
-            return data
+            const {data} = await axios.get('/contacts')
+                      return data
         } catch (error) {
             return rejectWithValue(error.message)
         }

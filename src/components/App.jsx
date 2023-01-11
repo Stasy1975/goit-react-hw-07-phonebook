@@ -4,7 +4,6 @@ import FormaContact from "../components/FormaContact/FormaContact";
 import ListContact from '../components/ListContact/ListContact'
 import { Container, H1 } from './App.styled'
 import Filter from './Filter/Filter'
-// import {filterContact} from 'redux/filterSlice'
 import {getContacts,getIsLoading,getError,getFilter} from '../redux/selectors'
 import { getAllContacts } from 'redux/operations';
 
@@ -16,14 +15,16 @@ const App = () => {
   const error = useSelector(getError)
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
+ 
 
    const normalizedFilter = filter.toLowerCase();
 
     const visibleContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter)
     ).sort((a, b) => a.name.localeCompare(b.name));
+ 
 
-// useEffect(()=>{dispatch(getAllContacts())
-// }, [dispatch]);
+useEffect(()=>{dispatch(getAllContacts())
+}, [dispatch]);
 
 
 

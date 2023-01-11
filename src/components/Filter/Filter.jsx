@@ -1,7 +1,7 @@
 import { React } from 'react';
 import { FilterForm } from './Filter.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import {filterSlice} from '../../redux/filterSlice'
+import {filterContact} from '../../redux/filterSlice'
 import { getFilter } from 'redux/selectors';
 
 
@@ -10,7 +10,8 @@ const Filter = () => {
   const contactFilter = useSelector(getFilter)
 
   const handleSearch = event => {
-    dispatch(filterSlice(event.currentTarget.value));
+   
+    dispatch(filterContact(event.currentTarget.value));
   };
   return (
     <FilterForm>

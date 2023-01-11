@@ -1,33 +1,53 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import {Lable,ContactAdd} from './FormaContact.styled';
-import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { getContacts } from '../../redux/selectors';
+import { addContact } from '../../redux/operations';
 
 const FormaContact = () => {
  const dispatch = useDispatch();
  const contacts = useSelector(getContacts)
 
- const [name, number] = useState('');
+//  const [name, phone] = useState('');
+
+ const [name, setName] = useState('');
+ const [phone, setPhone] = useState('');
 
  const handleChange = event => {
-    event.preventDefault();
-    // const { name, value } = event.currentTarget;
+   const { name, value } = event.currentTarget;
+   switch (name) {
+     case 'name':
+       setName(value);
+       break;
+     case 'number':
+       setPhone(value);
+       break;
+     default:
+       console.log('incorrect input name');
+   }
+ };
 
-  };
+//  const handleChange = event => {
+//     event.preventDefault();
+//     // const { name, value } = event.currentTarget;
+
+//   };
 
  const handleSubmit = event => {
     event.preventDefault();
-    if (contacts.find(contact => contact.name === name || contact.number === number)) {
-      alert(`${name} або ${number} вже є`);
+    // // const user = event.target;
+    // const {
+    // //   elements: { name, phone },
+    // } = event.target;
+    if (contacts.find(contact => contact.name === name || contact.phone === phone)) {
+      alert(`${name} або ${phone} вже є`);
       return;
     }
-    dispatch(addContact
-      ({name: name.value,
-        number: number.value,
-      })
-    )}
-
+    dispatch(addContact({name, phone}));
+    setName('');
+    setPhone('');
+    
+  }
 
     return (
       <div>
@@ -53,7 +73,7 @@ const FormaContact = () => {
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
-              value={number}
+              value={phone}
               onChange={handleChange}
             />
           </Lable>
